@@ -4,6 +4,12 @@ class Arkade_S3_Model_Resource_Core_File_Storage_S3
 {
     private $helper = null;
 
+    /**
+     * Delete the specified folder from S3 (we technically delete every file
+     * from S3 with the folder name as a prefix).
+     *
+     * @param string $folderName
+     */
     public function deleteFolder($folderName = '')
     {
         $folderName = rtrim($folderName, '/');

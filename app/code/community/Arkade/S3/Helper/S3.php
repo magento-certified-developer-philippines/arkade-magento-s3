@@ -18,6 +18,9 @@ class Arkade_S3_Helper_S3
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function getRegions()
     {
         return [
