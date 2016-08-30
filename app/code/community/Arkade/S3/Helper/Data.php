@@ -88,10 +88,17 @@ class Arkade_S3_Helper_Data extends Mage_Core_Helper_Data
     }
 
     /**
-     * @return mixed
+     * Get an array of the custom headers added via system config that we wish
+     * to send to S3.
+     *
+     * @return array
      */
     public function getCustomHeaders()
     {
-        return Mage::getStoreConfig('arkade_s3/settings/custom_headers');
+        $customerHeadersSerialised = Mage::getStoreConfig('arkade_s3/settings/custom_headers');
+        if (!is_null($customerHeadersSerialised)) {
+            return unserialize($customerHeadersSerialised);
+        }
+        return [];
     }
 }

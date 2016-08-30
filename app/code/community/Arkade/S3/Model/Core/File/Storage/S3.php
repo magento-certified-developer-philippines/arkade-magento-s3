@@ -152,12 +152,9 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
     {
         $metadata = $this->getDefaultMetadata();
 
-        $customerHeadersSerialised = $this->getHelper()->getCustomHeaders();
-        if (!is_null($customerHeadersSerialised)) {
-            $customerHeaders = unserialize($customerHeadersSerialised);
-            foreach ($customerHeaders as $customerHeader) {
-                $metadata[$customerHeader['header']] = $customerHeader['value'];
-            }
+        $customerHeaders = $this->getHelper()->getCustomHeaders();
+        foreach ($customerHeaders as $customerHeader) {
+            $metadata[$customerHeader['header']] = $customerHeader['value'];
         }
 
         return $metadata;
