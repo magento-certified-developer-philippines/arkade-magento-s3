@@ -126,11 +126,22 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         $sourcePath = $this->getMediaBaseDirectory() . '/' . $filename;
         $destinationPath = $this->getHelper()->getObjectKey($filename);
 
-        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, [
-            Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
-        ]);
+        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, $this->getMetadata());
 
         return $this;
+    }
+
+    /**
+     * An array of the HTTP headers that we intend send to S3 alongside the
+     * object.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return [
+            Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
+        ];
     }
 
     /**
