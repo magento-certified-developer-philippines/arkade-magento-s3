@@ -52,3 +52,8 @@ No, the S3 extension only syncs across the media folder. You will need to find a
 ### We did something wrong and all our images are gone! Can you restore it?
 
 We always recommend taking a backup of your media files when switching file storage systems. Unfortunately, we won’t be able to restore images if you somehow accidentally delete them.
+
+Success Stories
+---------------
+
+Are you a happy user of our extension? We'd love to feature you! [Create a GitHub issue](https://github.com/arkadedigital/magento-s3/issues/new) or [send us an email](mailto:support@arkade.com.au) to discuss opportunities for cross promotion!
