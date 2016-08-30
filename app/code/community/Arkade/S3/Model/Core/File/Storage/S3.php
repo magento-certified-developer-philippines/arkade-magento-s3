@@ -102,6 +102,12 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         return $files;
     }
 
+    /**
+     * Upload the given array of files to S3.
+     *
+     * @param array $files
+     * @return $this
+     */
     public function importFiles(array $files = [])
     {
         foreach ($files as $file) {
@@ -121,6 +127,12 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         return $this;
     }
 
+    /**
+     * Upload the specific file to S3.
+     *
+     * @param string $filename
+     * @return $this
+     */
     public function saveFile($filename)
     {
         $sourcePath = $this->getMediaBaseDirectory() . '/' . $filename;
