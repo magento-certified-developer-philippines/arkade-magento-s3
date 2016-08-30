@@ -6,6 +6,11 @@
         </Arkade_S3>
     </modules>
     <global>
+        <blocks>
+            <arkade_s3>
+                <class>Arkade_S3_Block</class>
+            </arkade_s3>
+        </blocks>
         <models>
             <arkade_s3>
                 <class>Arkade_S3_Model</class>
