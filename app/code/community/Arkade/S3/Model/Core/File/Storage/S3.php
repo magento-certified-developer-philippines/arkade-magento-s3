@@ -114,9 +114,7 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
             try {
                 $objectKey = $this->getHelper()->getObjectKey($file['filename'], $file['directory']);
                 $content = $file['content'];
-                $meta = [
-                    Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
-                ];
+                $meta = $this->getMetadata($this->getHelper()->getFilePath($file['filename'], $file['directory']));
                 $this->getHelper()->getClient()->putObject($objectKey, $content, $meta);
             } catch (Exception $e) {
                 $this->errors[] = $e->getMessage();
@@ -138,7 +136,7 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         $sourcePath = $this->getMediaBaseDirectory() . '/' . $filename;
         $destinationPath = $this->getHelper()->getObjectKey($filename);
 
-        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, $this->getMetadata());
+        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, $this->getMetadata($filename));
 
         return $this;
     }
@@ -147,9 +145,28 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
      * An array of the HTTP headers that we intend send to S3 alongside the
      * object.
      *
+     * @param string $filePath
      * @return array
      */
-    public function getMetadata()
+    public function getMetadata($filePath = '')
+    {
+        $metadata = $this->getDefaultMetadata();
+
+        $customerHeadersSerialised = $this->getHelper()->getCustomHeaders();
+        if (!is_null($customerHeadersSerialised)) {
+            $customerHeaders = unserialize($customerHeadersSerialised);
+            foreach ($customerHeaders as $customerHeader) {
+                $metadata[$customerHeader['header']] = $customerHeader['value'];
+            }
+        }
+
+        return $metadata;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaultMetadata()
     {
         return [
             Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ

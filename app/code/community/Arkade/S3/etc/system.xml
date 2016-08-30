@@ -18,7 +18,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <general>
-                    <label>General</label>
+                    <label>Access Details</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -60,6 +60,26 @@
                         </region>
                     </fields>
                 </general>
+                <settings>
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <custom_headers>
+                            <label>Custom Headers</label>
+                            <frontend_model>arkade_s3/adminhtml_system_config_form_field_header</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>50</sort_order>
+                            <comment>Add custom HTTP headers, e.g. Cache-Control, to file uploads to S3.</comment>
+                        </custom_headers>
+                    </fields>
+                </settings>
             </groups>
         </arkade_s3>
     </sections>

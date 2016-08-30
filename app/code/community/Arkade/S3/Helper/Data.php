@@ -86,4 +86,12 @@ class Arkade_S3_Helper_Data extends Mage_Core_Helper_Data
     {
         return Mage::getStoreConfig('arkade_s3/general/bucket');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomHeaders()
+    {
+        return Mage::getStoreConfig('arkade_s3/settings/custom_headers');
+    }
 }
