@@ -1,5 +1,5 @@
 <?php
-require_once './abstract.php';
+require_once 'abstract.php';
 
 class Arkade_S3_Shell_Config extends Mage_Shell_Abstract
 {
