@@ -1,6 +1,6 @@
 {
-  "name": "arkade/magento-s3",
-  "description": "Use Amazon S3 as the file storage backend for your Magento store.",
+  "name": "reillo/arkade-magento-s3",
+  "description": "Forked version of the deleted original repository of arkade/magento-s3. Use Amazon S3 as the file storage backend for your Magento store.",
   "type": "magento-module",
   "license": "MIT",
   "keywords": [
