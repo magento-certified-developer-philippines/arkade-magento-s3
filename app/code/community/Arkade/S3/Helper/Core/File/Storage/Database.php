@@ -11,10 +11,10 @@ class Arkade_S3_Helper_Core_File_Storage_Database extends Mage_Core_Helper_File_
      */
     public function checkDbUsage()
     {
-        if (!parent::checkDbUsage()) {
+        if (!($useS3 = $this->checkS3Usage())) {
             return $this->checkS3Usage();
         }
-        return $this->_useDb;
+        return !$useS3;
     }
 
     /**
