@@ -4,6 +4,12 @@ class Arkade_S3_Model_Captcha_Zend extends Mage_Captcha_Model_Zend
 {
     private $s3Helper = null;
 
+    /**
+     * Upload the generated CAPTCHA to S3.
+     *
+     * @param string $id
+     * @param string $word
+     */
     protected function _generateImage($id, $word)
     {
         parent::_generateImage($id, $word);

@@ -102,6 +102,12 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         return $files;
     }
 
+    /**
+     * Upload the given array of files to S3.
+     *
+     * @param array $files
+     * @return $this
+     */
     public function importFiles(array $files = [])
     {
         foreach ($files as $file) {
@@ -121,16 +127,33 @@ class Arkade_S3_Model_Core_File_Storage_S3 extends Mage_Core_Model_File_Storage_
         return $this;
     }
 
+    /**
+     * Upload the specific file to S3.
+     *
+     * @param string $filename
+     * @return $this
+     */
     public function saveFile($filename)
     {
         $sourcePath = $this->getMediaBaseDirectory() . '/' . $filename;
         $destinationPath = $this->getHelper()->getObjectKey($filename);
 
-        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, [
-            Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
-        ]);
+        $this->getHelper()->getClient()->putFile($sourcePath, $destinationPath, $this->getMetadata());
 
         return $this;
+    }
+
+    /**
+     * An array of the HTTP headers that we intend send to S3 alongside the
+     * object.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return [
+            Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
+        ];
     }
 
     /**
