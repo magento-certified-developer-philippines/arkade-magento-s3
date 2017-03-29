@@ -21,6 +21,21 @@ class Arkade_S3_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wysiwyg_
         return parent::getDirsCollection($path);
     }
 
+
+	/**
+	 * Create directories recursively
+	 *
+	 * @param  string $path
+	 * @return Mage_Core_Model_File_Storage_Directory_Database
+	 */
+	public function createRecursive($path)
+	{
+		$this->getS3DataHelper()->getClient()->putObject($this->getS3DataHelper()->getObjectKey($path), array(), array(
+			'Content-Type' => 'application/x-directory'
+		));
+        return $this->getDirsCollection($path);
+    }
+
     public function getFilesCollection($path, $type = null)
     {
         if ($this->getS3Helper()->checkS3Usage()) {
@@ -74,4 +89,15 @@ class Arkade_S3_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wysiwyg_
         }
         return $this->s3Helper;
     }
+
+	/**
+	 * @return Arkade_S3_Helper_Data
+	 */
+	protected function getS3DataHelper()
+	{
+		if (is_null($this->helper)) {
+			$this->helper = Mage::helper('arkade_s3');
+		}
+		return $this->helper;
+	}
 }
